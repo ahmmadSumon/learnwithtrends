@@ -94,7 +94,8 @@ export default function Nav() {
     setSolutionsOpen(!solutionsOpen);
   };
   return (
-    <div className="navbar flex items-center justify-between max-w-7xl mx-auto py-3">
+    < >
+    <div className="navbar   flex items-center justify-between max-w-7xl mx-auto py-3 z-50">
       <Link href="/">
         <div className="navbar-brand flex items-center justify-center">
           <Image className="h-[50px] w-[50px]" src={logo} alt="Logo" />
@@ -250,6 +251,7 @@ export default function Nav() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

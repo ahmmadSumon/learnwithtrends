@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import BlogCard from '../components/BlogCard';
 import Link from 'next/link';
 import Image from 'next/image';
-
+import { motion } from 'framer-motion';
 const categories = [
   { name: "Tech", href: "/category/tech", imageUrl: "/123.gif" },
   { name: "Digital Marketing", href: "/category/digital-marketing", imageUrl: "/234.gif" },
@@ -45,7 +45,14 @@ const Blog = () => {
 
   return (
     <>
-      <h1 className='text-center text-[#093E61] font-bold text-5xl'>Blog</h1>
+     <motion.h1 
+        className='text-center text-[#093E61] font-bold text-5xl'
+        initial={{ opacity: 0, y: 150 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: .8 }}
+      >
+        Blog
+      </motion.h1>
       <div className="container mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="flex flex-col">
           <div
@@ -89,23 +96,31 @@ const Blog = () => {
         {/* Blog posts */}
         <div className="col-span-2 md:col-span-2 md:-ml-[100px]  flex flex-wrap justify-between">
           {postsToDisplay.map((post, index) => (
-            <div key={index} className="w-full sm:w-1/2 p-2">
-              <BlogCard
-                title={post.title}
-                description={post.description}
-                imageUrl={post.imageUrl} // Use the image URL from the post
-                readMoreUrl={post.readMoreUrl}
-              />
-            </div>
+            <motion.div 
+            key={index} 
+            className="w-full sm:w-1/2 p-2"
+            initial={{ opacity: 0, y: 150 }}
+            whileInView={{ opacity: 1,  y: 0  }}
+            transition={{ duration: 0.8 }}
+          >
+            <BlogCard
+              title={post.title}
+              description={post.description}
+              imageUrl={post.imageUrl} // Use the image URL from the post
+              readMoreUrl={post.readMoreUrl}
+            />
+          </motion.div>
           ))}
           {!showAll && (
             <div className="w-full text-center mt-4">
-              <button
+              <motion.button
                 onClick={() => setShowAll(true)}
                 className="text-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: 'spring', stiffness: 300 }}
               >
                 See More
-              </button>
+              </motion.button>
             </div>
           )}
         </div>

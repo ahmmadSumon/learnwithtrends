@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import CourseCard from '../components/BlogCard';
 import Link from 'next/link';
 import Image from 'next/image';
-
+import { HeroScrollDemo } from '../components/HeroScrollDemo';
+import { motion } from 'framer-motion';
 const categories = [
   { name: "Web Development", href: "/category/web-development", imageUrl: "/web-dev.gif" },
   { name: "Data Science", href: "/category/data-science", imageUrl: "/data-science.gif" },
@@ -39,7 +40,12 @@ const Courses = () => {
 
   return (
     <>
-      <h1 className='text-center text-[#093E61] font-bold text-5xl'>Courses</h1>
+ <motion.h1 
+        className='text-center text-[#093E61] font-bold text-5xl'
+        initial={{ opacity: 0, y: 150 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: .8 }}
+      >Courses</motion.h1>
 
       <div className="container mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="flex flex-col">
@@ -81,28 +87,30 @@ const Courses = () => {
         <div className="col-span-2 md:col-span-2 md:-ml-[100px] flex flex-wrap justify-between">
           {/* Change to flex-wrap to handle responsive display */}
           {coursesToDisplay.map((course, index) => (
-            <div key={index} className="w-full md:w-1/2 p-2"> {/* Show 1 card on mobile, 2 on md+ */}
+            <motion.div key={index} className="w-full md:w-1/2 p-2"
+            initial={{ opacity: 0, y: 150 }}
+              whileInView={{ opacity: 1,  y: 0  }}
+              transition={{ duration: 0.8 }}
+            > {/* Show 1 card on mobile, 2 on md+ */}
               <CourseCard
                 title={course.title}
                 description={course.description}
                 imageUrl={course.imageUrl} // Use the image URL from the course
                 readMoreUrl={course.readMoreUrl}
               />
-            </div>
+            </motion.div>
           ))}
 
-          <div className="w-full text-center mt-4">
-            <button
-              className="max-w-sm bg-[#093E61] text-white my-5 px-6 py-3 rounded-full shadow-lg hover:bg-[#C8E0FB] hover:text-black transition-all flex justify-start ml-[80px]"
-            >
-              Join Our Courses
-            </button>
-          </div>
+          
         </div>
       </div>
+<div className='hidden md:block'>
+<HeroScrollDemo/>
+</div>
+    
 
       {/* Freelancing Course Section */}
-      <div className="container mx-auto px-6 py-12 bg-white rounded-lg shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl">
+      <div className="container block md:hidden mx-auto px-6 py-12 bg-white rounded-lg shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl">
   <div className="inner-div">
     <h2 className="text-4xl font-bold mb-6 text-center text-[#093E61]">Freelancing Course Enrollment Ongoing</h2>
     <p className="text-xl text-center mb-4 font-semibold text-gray-700">20% Discount</p>
@@ -163,9 +171,17 @@ const Courses = () => {
         </ul>
       </div>
     </div>
+  
   </div>
+  
 </div>
-
+<div className="w-full flex justify-center -ml-[50px]  text-center mt-4">
+            <button
+              className="max-w-sm bg-[#093E61] text-white my-5 px-6 py-3 rounded-full shadow-lg hover:bg-[#C8E0FB] hover:text-black transition-all flex justify-start ml-[80px]"
+            >
+              Join Our Courses
+            </button>
+          </div>
     </>
   );
 };
